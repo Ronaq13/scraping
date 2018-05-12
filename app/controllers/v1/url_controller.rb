@@ -5,13 +5,13 @@ class V1::UrlController < ApplicationController
     @urls = Url.all
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @url = Url.new(url_params)
+    @url.parse_and_build_content
     if @url.save
-      render json: @url, status: :created, location: @url
+      render json: @url, status: :created
     else
       render json: @url, status: :unprocessable_entity
     end
@@ -19,9 +19,10 @@ class V1::UrlController < ApplicationController
 
   def destroy
     @url.destroy
-  end  
+  end
 
   private
+
   def set_url
     @url = Url.find(params[:id])
   end
