@@ -10,10 +10,10 @@ class V1::UrlController < ApplicationController
   def create
     @url = Url.new(url_params)
     @url.parse_and_build_content
-    if @url.save
-      render json: @url, status: :created
+    if @url.save!
+      render 'v1/url/show', status: :created
     else
-      render json: @url, status: :unprocessable_entity
+      render 'v1/url/show', status: :unprocessable_entity
     end
   end
 
