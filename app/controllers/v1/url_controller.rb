@@ -18,7 +18,10 @@ class V1::UrlController < ApplicationController
   end
 
   def destroy
-    @url.destroy
+    url_id = @url.id
+    if @url.destroy
+      render json: { "message": "Destroyed the URL with id: #{url_id}" }
+    end
   end
 
   private
